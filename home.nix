@@ -3,6 +3,7 @@
 
 {
 #   imports = [  ./plasma/plasma.nix  ];
+  home.activation.remove_gtk2 = lib.hm.dag.entryAfter ["writeBoundary"] ''rm /home/cch/.gtkrc-2.0'';
 
   home.username = "cch";
   home.homeDirectory = "/home/cch";
@@ -45,7 +46,6 @@
     powerstat
     ocs-url
     librewolf
-    nextcloud-client
     libreoffice-qt
     mission-center
     haruna
@@ -262,7 +262,11 @@
   services = {
     home-manager.autoUpgrade = {
       enable = true;
-      frequency = "daily";
+      frequency = "weekly";
+    };
+    nextcloud-client = {
+      enable = true;
+      startInBackground = true;
     };
   };
 
@@ -287,9 +291,9 @@
       package = pkgs.callPackage ./pkgs/lavanda.nix { };
       name = "Lavanda-Sea-Dark";
     };
-    gtk2 = {
-      configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
-    };
+#     gtk2 = {
+#       configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+#     };
   };
 
   qt = {
@@ -305,9 +309,15 @@
       };
     };
     allowUnfree = true;
-    permittedInsecurePackages = [
-      "openssl-1.1.1w"
-    ];
+  };
+
+  nix = {
+    package = pkgs.nix;
+    settings = {
+      substituters = [ "https://xddxdd.cachix.org" ];
+      trusted-public-keys = [ "xddxdd.cachix.org-1:ay1HJyNDYmlSwj5NXQG065C8LfoqqKaTNCyzeixGjf8=" ];
+    };
+
   };
 
   # The state version is required and should stay at the version you
