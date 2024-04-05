@@ -3,7 +3,6 @@
 
 {
 #   imports = [  ./plasma/plasma.nix  ];
-  home.activation.remove_gtk2 = lib.hm.dag.entryAfter ["writeBoundary"] ''rm /home/cch/.gtkrc-2.0'';
 
   home.username = "cch";
   home.homeDirectory = "/home/cch";
@@ -77,7 +76,7 @@
     "kvantum" = {
       text = ''
         [General]
-        theme=LavandaSeaDark#
+        theme=LavandaSeaDark
       '';
       target = ".config/Kvantum/kvantum.kvconfig";
     };
@@ -88,6 +87,7 @@
     NIXOS_OZONE_WL = "1";
     LD_LIBRARY_PATH = "/run/current-system/sw/share/nix-ld/lib";
     fish_greeting = "";
+#     NIX_PATH = "$HOME/.config/home-manager/system/configuration.nix";
   };
 
   programs = {
@@ -291,9 +291,6 @@
       package = pkgs.callPackage ./pkgs/lavanda.nix { };
       name = "Lavanda-Sea-Dark";
     };
-#     gtk2 = {
-#       configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
-#     };
   };
 
   qt = {
@@ -317,7 +314,6 @@
       substituters = [ "https://xddxdd.cachix.org" ];
       trusted-public-keys = [ "xddxdd.cachix.org-1:ay1HJyNDYmlSwj5NXQG065C8LfoqqKaTNCyzeixGjf8=" ];
     };
-
   };
 
   # The state version is required and should stay at the version you

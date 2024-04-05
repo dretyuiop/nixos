@@ -7,41 +7,14 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+      /etc/nixos/hardware-configuration.nix
+#       # Gaming
+#       ./gaming/gaming.nix
+#       # Nvidia
+#       ./nvidia/nvidia.nix
     ];
 
-  # Nvidia
-  hardware = {
-    opengl = {
-      enable = true;
-      driSupport = true;
-      driSupport32Bit = true;
-    };
-    nvidia = {
-      powerManagement.enable = true;
-      powerManagement.finegrained = true;
-      open = false;
-      nvidiaSettings = true;
-      dynamicBoost.enable = true;
-      prime = {
-        offload.enable = true;
-        offload.enableOffloadCmd =  true;
-        nvidiaBusId = "PCI:1:0:0";
-        amdgpuBusId = "PCI:52:0:0";
-      };
-    };
-  };
-
-  services.xserver.videoDrivers = ["nvidia"];
-
-  # Gaming
-  programs.steam = {
-    enable = true;
-    gamescopeSession.enable = true;
-    extraCompatPackages = with pkgs; [
-      proton-ge-bin
-    ];
-  };
+  networking.hostName = "Modern-14";
 
   # Bootloader.
   boot = {
@@ -63,7 +36,6 @@
 
   # Network
   networking = {
-    hostName = "Dell-G15-5525";
     networkmanager.enable = true;
   };
 
@@ -146,8 +118,6 @@
     isNormalUser = true;
     description = "cch";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-    ];
   };
 
   # Nix config
@@ -193,10 +163,10 @@
   };
 
   xdg.portal = {
+    xdgOpenUsePortal = true;
     extraPortals = with pkgs; [
       xdg-desktop-portal-gtk
     ];
-    xdgOpenUsePortal = true;
   };
 
   zramSwap.enable = true;
@@ -224,11 +194,6 @@
       enablePlasmaBrowserIntegration = true;
     };
 
-    gamemode = {
-      enable = true;
-      enableRenice = true;
-    };
-
     nix-ld = {
       package = pkgs.nix-ld-rs;
       enable = true;
@@ -253,13 +218,6 @@
     };
   };
 
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
 
 }
