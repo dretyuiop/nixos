@@ -9,7 +9,7 @@
 }:
 
 stdenvNoCC.mkDerivation rec {
-  pname = "lavanda-theme";
+  pname = "lavanda-gtk-theme";
   version = "2023-10-22";
 
   src = fetchFromGitHub {

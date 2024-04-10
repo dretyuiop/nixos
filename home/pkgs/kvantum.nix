@@ -22,7 +22,6 @@ stdenvNoCC.mkDerivation rec {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/share/Kvantum
     cp -a Kvantum/* $out/share/Kvantum/
 
     runHook postInstall

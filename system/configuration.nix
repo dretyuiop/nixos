@@ -2,19 +2,19 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
-#       # Gaming
-#       ./gaming/gaming.nix
-#       # Nvidia
-#       ./nvidia/nvidia.nix
+      # Gaming
+      ./gaming
+      # Nvidia
+      ./nvidia
     ];
 
-  networking.hostName = "Modern-14";
+  networking.hostName = "Dell-G15-5525";
 
   # Bootloader.
   boot = {
@@ -121,7 +121,14 @@
   };
 
   # Nix config
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    packageOverrides = pkgs: {
+      nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+        inherit pkgs;
+      };
+    };
+    allowUnfree = true;
+  };
 
   nix = {
     settings = {
@@ -157,8 +164,9 @@
       noto-fonts-extra
       noto-fonts-emoji
       noto-fonts-cjk
-      corefonts
-      vistafonts
+#       corefonts
+#       vistafonts
+      nur.repos.rewine.ttf-ms-win10
     ];
   };
 
@@ -167,6 +175,14 @@
     extraPortals = with pkgs; [
       xdg-desktop-portal-gtk
     ];
+  };
+
+  security = {
+    sudo = {
+      extraRules = [
+        { groups = [ "wheel" ];  commands = [ { command = "/home/cch/.nix-profile/bin/ryzenadj"; options = [ "SETENV" "NOPASSWD" ]; } ]; }
+      ];
+    };
   };
 
   zramSwap.enable = true;
@@ -184,8 +200,15 @@
     };
   };
 
+  systemd.services.libvirtd.wantedBy = lib.mkForce [];
+
+  virtualisation.libvirtd.enable = true;
+
   programs = {
+
     kdeconnect.enable = true;
+
+    virt-manager.enable = true;
 
     dconf.enable = true;
 

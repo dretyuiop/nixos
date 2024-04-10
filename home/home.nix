@@ -1,93 +1,95 @@
-#Dell G15
 { config, pkgs, lib, ... }:
 
 {
-#   imports = [  ./plasma/plasma.nix  ];
+  imports =
+    [
+      ./plasma
+      ./gaming
+    ];
 
-  home.username = "cch";
-  home.homeDirectory = "/home/cch";
-  home.packages = with pkgs; [
-    # basic utils
-    psmisc
-    lm_sensors
-    wget
-    lshw
-    iputils
-    bind
-    glxinfo
-    vulkan-tools
+  home = {
+    username = "cch";
+    homeDirectory = "/home/cch";
+    packages = with pkgs; [
+      # basic utils
+      psmisc
+      lm_sensors
+      wget
+      lshw
+      iputils
+      bind
+      glxinfo
+      vulkan-tools
 
-    # standard
-    libva-utils
-    chezmoi
-    gnupg
-    fzf
-    ripgrep
-    ripgrep-all
-    eza
-    bat
+      # standard
+      libva-utils
+      chezmoi
+      gnupg
+      fzf
+      ripgrep
+      ripgrep-all
+      eza
+      bat
 
-    # themes
-    kdePackages.qtstyleplugin-kvantum
-    (callPackage ./pkgs/kvantum.nix { })
-    (callPackage ./pkgs/twilight-kde.nix { })
-    dracula-theme
-    tela-icon-theme
+      # themes
+      kdePackages.qtstyleplugin-kvantum
+      (callPackage ./pkgs/kvantum.nix { })
+      (callPackage ./pkgs/twilight-kde.nix { })
+      dracula-theme
+      tela-icon-theme
 
-    # code
+      # code
 
-    # apps
-    yakuake
-    ferdium
-    fsearch
-    trayscale
-    htop
-    powerstat
-    ocs-url
-    librewolf
-    libreoffice-qt
-    mission-center
-    haruna
-    yt-dlp
-    nur.repos.xddxdd.wine-wechat
+      # apps
+      ryzenadj
+      armcord
+      meld
+      nextcloud-client
+      yakuake
+      ferdium
+      fsearch
+      trayscale
+      htop
+      powerstat
+      ocs-url
+      librewolf
+      libreoffice-qt
+      mission-center
+      haruna
+      yt-dlp
 
-    # game
-    lutris
-    mangohud
-    heroic
-    wineWowPackages.waylandFull
-    winetricks
-    bottles
+      # nur
+      nur.repos.xddxdd.wine-wechat
 
-    # scripts
-    (pkgs.writeShellScriptBin "cputemp" ''
-      if [ $(cat "/sys/class/power_supply/BAT1/status") != "Discharging" ]; then
-        sensors | grep -A 0 'Tctl' | cut -c16-17
+      # scripts
+      (pkgs.writeShellScriptBin "cputemp" ''
+        if [ $(cat "/sys/class/power_supply/BAT1/status") != "Discharging" ]; then
+          sensors | grep -A 0 'Tctl' | cut -c16-17
+        fi
+      '')
+      (pkgs.writeShellScriptBin "gputemp" ''
+      if [ $(cat "/sys/class/power_supply/BAT1/status") != "Discharging" ] && [ -z "$(nvidia-smi | grep failed)" ]; then
+        nvidia-smi --query-gpu temperature.gpu --format=csv,noheader
       fi
-    '')
-    (pkgs.writeShellScriptBin "gputemp" ''
-    if [ $(cat "/sys/class/power_supply/BAT1/status") != "Discharging" ] && [ -z "$(nvidia-smi | grep failed)" ]; then
-      nvidia-smi --query-gpu temperature.gpu --format=csv,noheader
-    fi
-    '')
-  ];
+      '')
+    ];
 
-  home.file = {
-    "kvantum" = {
-      text = ''
-        [General]
-        theme=LavandaSeaDark
-      '';
-      target = ".config/Kvantum/kvantum.kvconfig";
+  #   file = {
+  #     "kvantum" = {
+  #       text = ''
+  #         [General]
+  #         theme=LavandaSeaDark
+  #       '';
+  #       target = ".config/Kvantum/kvantum.kvconfig";
+  #     };
+  #   };
+
+    sessionVariables = {
+      GTK_USE_PORTAL = "1";
+      NIXOS_OZONE_WL = "1";
+      LD_LIBRARY_PATH = "/run/current-system/sw/share/nix-ld/lib";
+      fish_greeting = "";
     };
-  };
-
-  home.sessionVariables = {
-    GTK_USE_PORTAL = "1";
-    NIXOS_OZONE_WL = "1";
-    LD_LIBRARY_PATH = "/run/current-system/sw/share/nix-ld/lib";
-    fish_greeting = "";
-#     NIX_PATH = "$HOME/.config/home-manager/system/configuration.nix";
   };
 
   programs = {
@@ -153,8 +155,8 @@
       shellAliases = {
         cat = "bat";
         cp = "cp -v";
-        hm = "rm -f /home/cch/.config/gtk-2.0/gtkrc && home-manager --impure";
-        hms = "rm -f /home/cch/.config/gtk-2.0/gtkrc && home-manager switch --impure";
+        hm = "home-manager --impure -f $HOME/.config/home-manager/home/home.nix";
+        hms = "home-manager switch --impure -f $HOME/.config/home/home/home.nix";
         la = "eza --long --header --all --icons";
         ls = "eza --long --header --icons";
         mkdir = "mkdir -v";
@@ -170,36 +172,6 @@
       enable = true;
       userEmail = "chewch03@gmail.com";
       userName = "dretyuiop";
-    };
-
-    mangohud = {
-      enable = true;
-      enableSessionWide = true;
-      settings =  {
-        no_display = 1;
-        toggle_hud = "F11";
-        gpu_text = "GPU";
-        gpu_load_change = 1;
-        gpu_load_value = "50,90";
-        throttling_status = 1;
-        gpu_core_clock = 1;
-        gpu_temp = 1;
-        gpu_power = 1;
-        cpu_text = "CPU";
-        cpu_load_change = 1;
-        cpu_load_value = "50,90";
-        cpu_mhz = 1;
-        cpu_temp = 1;
-        ram = 1;
-        fps = 1;
-        vulkan_driver = 1;
-        wine = 1;
-        output_folder = "$HOME/.local/share/mangohud";
-        log_duration = 30;
-        autostart_log = 0;
-        log_interval = 100;
-        toggle_logging = "Shift_L+F2";
-      };
     };
 
     starship = {
@@ -266,7 +238,6 @@
     };
     nextcloud-client = {
       enable = true;
-      startInBackground = true;
     };
   };
 
@@ -311,8 +282,11 @@
   nix = {
     package = pkgs.nix;
     settings = {
-      substituters = [ "https://xddxdd.cachix.org" ];
-      trusted-public-keys = [ "xddxdd.cachix.org-1:ay1HJyNDYmlSwj5NXQG065C8LfoqqKaTNCyzeixGjf8=" ];
+      substituters = [ "https://cache.nixos.org/" "https://xddxdd.cachix.org" ];
+      trusted-public-keys = [
+        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+        "xddxdd.cachix.org-1:ay1HJyNDYmlSwj5NXQG065C8LfoqqKaTNCyzeixGjf8="
+      ];
     };
   };
 
