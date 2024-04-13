@@ -16,7 +16,6 @@
 
       sharedOverlays = [
         nur.overlay
-        self.overlay
       ];
 
       hostDefaults.modules = [
