@@ -10,10 +10,5 @@
         proton-ge-bin
       ];
     };
-
-    gamemode = {
-      enable = true;
-      enableRenice = true;
-    };
   };
 }
