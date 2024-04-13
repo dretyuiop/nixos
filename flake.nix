@@ -1,16 +1,8 @@
 {
   description = "Home Manager configuration of cch";
 
-  nixConfig = {
-    extra-substituters = [
-      "https://xddxdd.cachix.org"
-    ];
-    extra-trusted-public-keys = [
-      "xddxdd.cachix.org-1:ay1HJyNDYmlSwj5NXQG065C8LfoqqKaTNCyzeixGjf8="
-    ];
-  };
-
   inputs = {
+    stable.url = github:nixos/nixpkgs/nixos-23.11;
     nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
     home-manager = {
       url = github:nix-community/home-manager;
@@ -24,19 +16,22 @@
     nur.url = github:nix-community/NUR;
   };
 
-  outputs = inputs@ { nixpkgs, home-manager, nur, plasma-manager, ... }:
+  outputs = inputs@ { stable, nixpkgs, home-manager, plasma-manager, nur,  ... }:
     let
       mkHome = hostModule: home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          system = "x86_64-linux";
-          overlays = [ nur.overlay ];
-          config.allowUnfree = true;
-        };
-        modules = [
-          ./hosts/common/home.nix
-          plasma-manager.homeManagerModules.plasma-manager
-          hostModule
-        ];
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            overlays = [
+              nur.overlay
+              (final: prev: {stable = stable.legacyPackages.${prev.system};})
+            ];
+            config.allowUnfree = true;
+          };
+          modules = [
+            ./hosts/common/home.nix
+            plasma-manager.homeManagerModules.plasma-manager
+            hostModule
+          ];
       };
     in {
       homeConfigurations = {

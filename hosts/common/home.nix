@@ -122,7 +122,7 @@
 
     chromium = {
       enable = true;
-      package = pkgs.brave;
+      package = pkgs.stable.brave;
       commandLineArgs = [
         "--enable-wayland-ime"
       ];
@@ -237,6 +237,18 @@
     };
     nextcloud-client = {
       enable = true;
+    };
+  };
+
+  nix = {
+    package = pkgs.nix;
+    settings = {
+      extra-substituters = [
+        "https://xddxdd.cachix.org"
+      ];
+      extra-trusted-public-keys = [
+        "xddxdd.cachix.org-1:ay1HJyNDYmlSwj5NXQG065C8LfoqqKaTNCyzeixGjf8="
+      ];
     };
   };
 

@@ -7,8 +7,7 @@
     nur.url = github:nix-community/NUR;
   };
 
-
-  outputs = inputs@{ self, nixpkgs, utils, home-manager, nur }:
+  outputs = inputs@ { self, nixpkgs, utils, home-manager, nur, ... }:
     utils.lib.mkFlake {
       inherit self inputs;
 
