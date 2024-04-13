@@ -8,13 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       /etc/nixos/hardware-configuration.nix
-      # Gaming
-      ./gaming
-      # Nvidia
-      ./nvidia
     ];
-
-  networking.hostName = "Dell-G15-5525";
 
   # Bootloader.
   boot = {
@@ -121,15 +115,6 @@
   };
 
   # Nix config
-  nixpkgs.config = {
-    packageOverrides = pkgs: {
-      nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-        inherit pkgs;
-      };
-    };
-    allowUnfree = true;
-  };
-
   nix = {
     settings = {
       experimental-features = [ "nix-command" "flakes" ];

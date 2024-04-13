@@ -3,8 +3,8 @@
 {
   imports =
     [
-      ./plasma
-      ./gaming
+      ../../modules/plasma
+      ../../modules/gaming/home.nix
     ];
 
   home = {
@@ -33,8 +33,8 @@
 
       # themes
       kdePackages.qtstyleplugin-kvantum
-      (callPackage ./pkgs/kvantum.nix { })
-      (callPackage ./pkgs/twilight-kde.nix { })
+      (callPackage ../pkgs/kvantum.nix { })
+      (callPackage ../pkgs/twilight-kde.nix { })
       dracula-theme
       tela-icon-theme
 
@@ -155,8 +155,8 @@
       shellAliases = {
         cat = "bat";
         cp = "cp -v";
-        hm = "home-manager --impure -f $HOME/.config/home-manager/home/home.nix";
-        hms = "home-manager switch --impure -f $HOME/.config/home/home/home.nix";
+        hm = "home-manager";
+        hms = "home-manager switch";
         la = "eza --long --header --all --icons";
         ls = "eza --long --header --icons";
         mkdir = "mkdir -v";
@@ -259,7 +259,7 @@
   gtk = {
     enable = true;
     theme = {
-      package = pkgs.callPackage ./pkgs/lavanda.nix { };
+      package = pkgs.callPackage ../pkgs/lavanda.nix { };
       name = "Lavanda-Sea-Dark";
     };
   };
@@ -270,25 +270,25 @@
 #       platformTheme = "kde";
   };
 
-  nixpkgs.config = {
-    packageOverrides = pkgs: {
-      nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
-        inherit pkgs;
-      };
-    };
-    allowUnfree = true;
-  };
+#   nixpkgs.config = {
+#     packageOverrides = pkgs: {
+#       nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+#         inherit pkgs;
+#       };
+#     };
+#     allowUnfree = true;
+#   };
 
-  nix = {
-    package = pkgs.nix;
-    settings = {
-      substituters = [ "https://cache.nixos.org/" "https://xddxdd.cachix.org" ];
-      trusted-public-keys = [
-        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-        "xddxdd.cachix.org-1:ay1HJyNDYmlSwj5NXQG065C8LfoqqKaTNCyzeixGjf8="
-      ];
-    };
-  };
+#   nix = {
+#     package = pkgs.nix;
+#     settings = {
+#       substituters = [ "https://cache.nixos.org/" "https://xddxdd.cachix.org" ];
+#       trusted-public-keys = [
+#         "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+#         "xddxdd.cachix.org-1:ay1HJyNDYmlSwj5NXQG065C8LfoqqKaTNCyzeixGjf8="
+#       ];
+#     };
+#   };
 
   # The state version is required and should stay at the version you
   # originally installed.

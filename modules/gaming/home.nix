@@ -3,7 +3,7 @@
 {
   home.packages = with pkgs; [
     # game
-    lutris
+    lutris-free
     mangohud
     heroic
     wineWowPackages.waylandFull
