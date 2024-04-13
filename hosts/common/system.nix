@@ -66,18 +66,19 @@
   # Enable the KDE Plasma Desktop Environment.
   services.desktopManager.plasma6.enable = true;
 
+  services.displayManager = {
+    sddm = {
+      enable = true;
+      wayland.enable = true;
+    };
+    autoLogin = {
+      enable = true;
+      user = "cch";
+    };
+  };
+
   services.xserver = {
     enable = true;
-    displayManager = {
-      sddm = {
-        enable = true;
-        wayland.enable = true;
-      };
-      autoLogin = {
-        enable = true;
-        user = "cch";
-      };
-    };
     xkb = {
       layout = "us";
       variant = "";
