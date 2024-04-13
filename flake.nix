@@ -11,7 +11,7 @@
   };
 
   inputs = {
-    nixpkgs.url = "nixpkgs";
+    nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
     home-manager = {
       url = github:nix-community/home-manager;
       inputs.nixpkgs.follows = "nixpkgs";
@@ -21,7 +21,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
-    nur.url = "nur";
+    nur.url = github:nix-community/NUR;
   };
 
   outputs = inputs@ { nixpkgs, home-manager, nur, plasma-manager, ... }:
@@ -41,6 +41,7 @@
     in {
       homeConfigurations = {
         "cch@Dell-G15-5525" = mkHome ./hosts/Dell-G15-5525/home.nix;
+        "cch@Modern-14" = mkHome ./hosts/Modern-14/home.nix;
       };
     };
 }
