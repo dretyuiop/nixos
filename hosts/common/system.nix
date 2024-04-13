@@ -131,10 +131,11 @@
   system.autoUpgrade = {
     enable = true;
     dates = "02:00";
-    flake = inputs.self.outPath;
+    flake = inputs.self.output;
     flags = [
       "--update-input"
       "nixpkgs"
+      "--commit-lock-file"
       "-L"
     ];
   };
