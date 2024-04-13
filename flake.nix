@@ -33,7 +33,7 @@
           config.allowUnfree = true;
         };
         modules = [
-          ../hosts/common/home.nix
+          ./hosts/common/home.nix
           plasma-manager.homeManagerModules.plasma-manager
           hostModule
         ];

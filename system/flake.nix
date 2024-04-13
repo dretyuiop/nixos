@@ -27,6 +27,7 @@
           ../hosts/Dell-G15-5525/system.nix
           ../hosts/Dell-G15-5525/hardware-configuration.nix
         ];
+
         Modern-14.modules = [ ../hosts/Modern-14/system.nix ];
       };
 
