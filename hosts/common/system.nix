@@ -130,8 +130,13 @@
 
   system.autoUpgrade = {
     enable = true;
-    operation = "boot";
     dates = "02:00";
+    flake = inputs.self.outPath;
+    flags = [
+      "--update-input"
+      "nixpkgs"
+      "-L"
+    ];
   };
 
   # System config
@@ -150,8 +155,6 @@
       noto-fonts-extra
       noto-fonts-emoji
       noto-fonts-cjk
-#       corefonts
-#       vistafonts
       nur.repos.rewine.ttf-ms-win10
     ];
   };
@@ -165,9 +168,13 @@
 
   security = {
     sudo = {
-      extraRules = [
-        { groups = [ "wheel" ];  commands = [ { command = "/home/cch/.nix-profile/bin/ryzenadj"; options = [ "SETENV" "NOPASSWD" ]; } ]; }
-      ];
+      extraRules = [{
+        groups = [ "wheel" ];
+        commands = [{
+          command = "/home/cch/.nix-profile/bin/ryzenadj";
+          options = [ "SETENV" "NOPASSWD" ]; }
+        ];
+      }];
     };
   };
 
@@ -187,7 +194,6 @@
   };
 
   systemd.services.libvirtd.wantedBy = lib.mkForce [];
-
   virtualisation.libvirtd.enable = true;
 
   programs = {
