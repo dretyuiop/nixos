@@ -3,8 +3,13 @@
 {
   imports =
     [
+    # Gaming
+    ../../modules/gaming/system.nix
+
+    # Nvidia
+    ../../modules/hardware/nvidia
     ];
 
     # Hostname
-    networking.hostName = "Modern-14";
+    networking.hostName = "Dell-G15-5525";
 }
