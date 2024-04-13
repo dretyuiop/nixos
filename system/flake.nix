@@ -20,6 +20,7 @@
 
       hostDefaults.modules = [
         ../hosts/common/system.nix
+        /etc/nixos/hardware-configuration.nix
       ];
 
       hosts = {
