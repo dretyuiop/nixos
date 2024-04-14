@@ -71,15 +71,15 @@
       '')
     ];
 
-  #   file = {
-  #     "kvantum" = {
-  #       text = ''
-  #         [General]
-  #         theme=LavandaSeaDark
-  #       '';
-  #       target = ".config/Kvantum/kvantum.kvconfig";
-  #     };
-  #   };
+    file = {
+      "kvantum" = {
+        text = ''
+          [General]
+          theme=LavandaSeaDark
+        '';
+        target = ".config/Kvantum/kvantum.kvconfig";
+      };
+    };
 
     sessionVariables = {
       GTK_USE_PORTAL = "1";
