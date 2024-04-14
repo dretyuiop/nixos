@@ -3,6 +3,7 @@
 {
   home.packages = with pkgs; [
     # game
+    steam-run
     lutris-free
     mangohud
     heroic
