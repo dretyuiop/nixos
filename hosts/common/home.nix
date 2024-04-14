@@ -31,8 +31,7 @@
 
       # themes
       kdePackages.qtstyleplugin-kvantum
-      (callPackage ../../pkgs/kvantum.nix { })
-      (callPackage ../../pkgs/twilight-kde.nix { })
+      lavanda-kvantum
       dracula-theme
       tela-icon-theme
 
@@ -270,7 +269,7 @@
   gtk = {
     enable = true;
     theme = {
-      package = pkgs.callPackage ../../pkgs/lavanda.nix { };
+      package = pkgs.lavanda-gtk-theme;
       name = "Lavanda-Sea-Dark";
     };
   };

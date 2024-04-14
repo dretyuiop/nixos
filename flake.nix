@@ -23,6 +23,7 @@
             system = "x86_64-linux";
             overlays = [
               nur.overlay
+              (import ./overlay/pkgs.nix)
               (final: prev: {stable = stable.legacyPackages.${prev.system};})
             ];
             config.allowUnfree = true;
