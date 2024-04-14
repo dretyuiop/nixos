@@ -145,9 +145,7 @@
   # System config
   environment = {
     localBinInPath = true;
-    systemPackages = with pkgs; [
-      kdePackages.ktexteditor
-    ];
+    systemPackages = with pkgs; [];
   };
 
   fonts = {
@@ -169,6 +167,7 @@
     ];
   };
 
+  # allow ryzenadj binary to run without sudo password
   security = {
     sudo = {
       extraRules = [{
@@ -196,6 +195,7 @@
     };
   };
 
+  # disable libvirtd service
   systemd.services.libvirtd.wantedBy = lib.mkForce [];
   virtualisation.libvirtd.enable = true;
 
