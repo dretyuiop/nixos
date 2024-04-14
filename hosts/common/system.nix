@@ -28,6 +28,8 @@
     };
   };
 
+  fileSystems."/".options = [ "x-systemd.device-timeout=0" ];
+
   # Network
   networking = {
     networkmanager.enable = true;
@@ -131,7 +133,7 @@
   system.autoUpgrade = {
     enable = true;
     dates = "02:00";
-    flake = inputs.self.output;
+    flake = inputs.self.outPath;
     flags = [
       "--update-input"
       "nixpkgs"
