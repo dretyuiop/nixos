@@ -248,6 +248,11 @@
       extra-trusted-public-keys = [
         "xddxdd.cachix.org-1:ay1HJyNDYmlSwj5NXQG065C8LfoqqKaTNCyzeixGjf8="
       ];
+      auto-optimise-store = true;
+    };
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 14d";
     };
   };
 
