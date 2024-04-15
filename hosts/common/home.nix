@@ -9,6 +9,7 @@
     username = "cch";
     homeDirectory = "/home/cch";
     packages = with pkgs; [
+      firefox
       # basic utils
       psmisc
       lm_sensors
