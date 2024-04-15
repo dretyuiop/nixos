@@ -30,6 +30,7 @@
           };
           modules = [
             ./hosts/common/home.nix
+            ./modules
             plasma-manager.homeManagerModules.plasma-manager
             hostModule
           ];
