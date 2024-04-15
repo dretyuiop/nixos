@@ -256,6 +256,11 @@
     };
   };
 
+  xdg = {
+    enable = true;
+    mime.enable = true;
+  };
+
   systemd.user.services = {
     "aria2" = {
       Unit = {
