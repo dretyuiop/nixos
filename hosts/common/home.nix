@@ -242,12 +242,6 @@
   nix = {
     package = pkgs.nix;
     settings = {
-      extra-substituters = [
-        "https://xddxdd.cachix.org"
-      ];
-      extra-trusted-public-keys = [
-        "xddxdd.cachix.org-1:ay1HJyNDYmlSwj5NXQG065C8LfoqqKaTNCyzeixGjf8="
-      ];
       auto-optimise-store = true;
     };
     gc = {

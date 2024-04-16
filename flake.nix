@@ -16,6 +16,15 @@
     nur.url = github:nix-community/NUR;
   };
 
+  nixConfig = {
+    extra-substituters = [
+      "https://xddxdd.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "xddxdd.cachix.org-1:ay1HJyNDYmlSwj5NXQG065C8LfoqqKaTNCyzeixGjf8="
+    ];
+  };
+
   outputs = inputs@ { stable, nixpkgs, home-manager, plasma-manager, nur,  ... }:
     let
       mkHome = hostModule: home-manager.lib.homeManagerConfiguration {
