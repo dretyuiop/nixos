@@ -15,13 +15,14 @@
 
     startup = {
       autoStartScript = {
-        "remove-gtk2" = {
-          text = "rm -f $HOME/.gtkrc-2.0";
+        "remove-gtkrc-2.0" = {
+          text = "rm -f $VERBOSE_ARG rm -f $HOME/.gtkrc-2.0";
         };
         "set-temp-limit" = {
           text = "sudo ryzenadj -f 88";
         };
       };
     };
+
   };
 }

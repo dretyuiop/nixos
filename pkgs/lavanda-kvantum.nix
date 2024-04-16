@@ -25,9 +25,7 @@ stdenvNoCC.mkDerivation rec {
     cp -a Kvantum/* $out/share/Kvantum/
     sed -i "/translucent_windows/s/true/false/" $out/share/Kvantum/LavandaSea/LavandaSeaDark.kvconfig
     sed -i "/blurring/s/true/false/" $out/share/Kvantum/LavandaSea/LavandaSeaDark.kvconfig
-    sed -i "/transparent_dolphin_view/s/true/false/" $out/share/Kvantum/LavandaSea/LavandaSeaDark.kvconfig
-    sed -i "/blur_translucent/s/true/false/" $out/share/Kvantum/LavandaSea/LavandaSeaDark.kvconfig
-    sed -i "/[Focus]/{n;n;s/false/true/}" $out/share/Kvantum/LavandaSea/LavandaSeaDark.kvconfig
+    sed -i "/[Focus]/{n;n;s/frame=false/frame=true/}" $out/share/Kvantum/LavandaSea/LavandaSeaDark.kvconfig
 
     runHook postInstall
   '';
