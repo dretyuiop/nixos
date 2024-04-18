@@ -38,6 +38,7 @@
       # code
 
       # apps
+      easyeffects
       ryzenadj
       armcord
       meld
