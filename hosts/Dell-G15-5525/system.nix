@@ -12,4 +12,5 @@
 
     # Hostname
     networking.hostName = "Dell-G15-5525";
+    hardware.cpu.amd.ryzen-smu.enable = true;
 }
