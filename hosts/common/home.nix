@@ -117,7 +117,7 @@
 
     vscode = {
       enable = true;
-      package = pkgs.vscodium.fhsWithPackages (ps: with ps; [ rustup zlib ]);
+      package = pkgs.vscodium.fhsWithPackages (ps: with ps; [ rustup zlib dotnet-sdk ]);
     };
 
     chromium = {
